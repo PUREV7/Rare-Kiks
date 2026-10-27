@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08070d">
+  <title>RareKicks — Sneakers & Streetwear</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #08070d;
+      color: #fff;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 1px solid #282332;
+      position: sticky;
+      top: 0;
+      background: #08070df2;
+      z-index: 5;
+    }
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .logo span { color: #bd65ff; }
+    button {
+      border: 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .cart {
+      background: #191322;
+      color: white;
+      padding: 12px 15px;
+      border: 1px solid #8d42c8;
+      border-radius: 12px;
+    }
+    .hero {
+      padding: 65px 22px 55px;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #42205d 0%, #15101f 43%, #08070d 78%);
+    }
+    .tag {
+      color: #d7a8ff;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(38px, 10vw, 65px);
+      margin: 22px 0 15px;
+      line-height: 1.05;
+    }
+    h1 span {
+      color: #c16aff;
+      text-shadow: 0 0 28px #a33eff66;
+    }
+    .hero p { color: #c5bdce; line-height: 1.6; }
+    .cta {
+      margin-top: 25px;
+      padding: 15px 24px;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(100deg, #8d35c9, #c15cff);
+      box-shadow: 0 0 25px #9b3bdf44;
+    }
+    .section { padding: 35px 18px; }
+    .section h2 { font-size: 25px; margin-bottom: 8px; }
+    .subtitle { color: #a69caf; font-size: 14px; margin-bottom: 23px; }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+    .card {
+      background: #121019;
+      border: 1px solid #2b2236;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .product-image {
+      height: 145px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, #382344, #17121e 70%);
+      font-size: 57px;
+    }
+    .details { padding: 13px; }
+    .details h3 { font-size: 15px; margin-bottom: 8px; }
+    .details p { color: #b5aabd; font-size: 12px; min-height: 30px; }
+    .price {
+      margin: 12px 0;
+      color: #d69bff;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .add {
+      width: 100%;
+      background: #9d46d7;
+      color: white;
+      padding: 11px 5px;
+      border-radius: 8px;
+    }
+    .notice {
+      margin: 0 18px 35px;
+      border: 1px solid #352440;
+      background: #15101d;
+      border-radius: 12px;
+      padding: 17px;
+      color: #c8bdcf;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    footer {
+      border-top: 1px solid #282332;
+      padding: 25px 18px;
+      color: #8e8498;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.8;
+    }
+    #cartPanel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: #000b;
+      padding: 20px;
+    }
+    .cart-box {
+      background: #17121f;
+      border: 1px solid #633783;
+      border-radius: 16px;
+      padding: 22px;
+      margin: 70px auto;
+      max-width: 420px;
+    }
+    .cart-box h2 { margin-bottom: 15px; }
+    .cart-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #352b40;
+      font-size: 14px;
+    }
+    .close {
+      float: right;
+      background: transparent;
+      color: white;
+      font-size: 24px;
+    }
+    .checkout {
+      width: 100%;
+      padding: 14px;
+      background: #9d46d7;
+      color: white;
+      border-radius: 9px;
+      margin-top: 20px;
+    }
+    .empty { color: #b5aabd; line-height: 1.6; }
+    @media (min-width: 650px) {
+      .products { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .hero { padding: 90px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">RARE<span>KICKS</span></div>
+    <button class="cart" onclick="openCart()">🛍️ Panier (<span id="count">0</span>)</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">La sélection streetwear</div>
+      <h1>RARE FINDS.<br><span>REAL STYLE.</span></h1>
+      <p>Des pièces streetwear sélectionnées pour<br>affirmer ton style.</p>
+      <button class="cta" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+        DÉCOUVRIR LA COLLECTION ↓
+      </button>
+    </section>
+
+    <section class="section" id="shop">
+      <h2>La collection</h2>
+      <p class="subtitle">Une sélection à découvrir.</p>
+      <div class="products" id="products"></div>
+    </section>
+
+    <div class="notice">
+      <strong>Information boutique</strong><br>
+      Les articles présentés sont des exemples de catalogue. Vérifie les stocks,
+      les tailles, les prix et les conditions de livraison avant toute vente.
+    </div>
+  </main>
+
+  <footer>
+    <strong>RAREKICKS</strong><br>
+    Streetwear • Style • Sélection<br>
+    © <span id="year"></span> RareKicks — Tous droits réservés.
+  </footer>
+
+  <div id="cartPanel" onclick="if(event.target===this) closeCart()">
+    <div class="cart-box">
+      <button class="close" onclick="closeCart()">×</button>
+      <h2>Ton panier</h2>
+      <div id="cartItems"></div>
+      <button class="checkout" onclick="checkout()">Continuer</button>
+      <p style="color:#a69caf;font-size:12px;margin-top:12px;line-height:1.5">
+        Aucun paiement n'est effectué sur cette première version.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const catalog = [
+      {name:"Survêtement Tech", description:"Ensemble sport • Noir", price:89, icon:"👟"},
+      {name:"Survêtement Street", description:"Style urbain • Violet", price:75, icon:"🧥"},
+      {name:"Veste Premium", description:"Collection streetwear", price:65, icon:"🧢"},
+      {name:"Ensemble Sport", description:"Look quotidien • Noir", price:95, icon:"👕"}
+    ];
+
+    const cart = [];
+
+    function renderProducts() {
+      document.getElementById("products").innerHTML = catalog.map((p, i) => `
+        <article class="card">
+          <div class="product-image">${p.icon}</div>
+          <div class="details">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <div class="price">${p.price.toFixed(2).replace(".", ",")} €</div>
+            <button class="add" onclick="addToCart(${i})">Ajouter au panier</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function addToCart(i) {
+      cart.push(catalog[i]);
+      document.getElementById("count").textContent = cart.length;
+      alert(catalog[i].name + " ajouté au panier !");
+    }
+
+    function openCart() {
+      document.getElementById("cartPanel").style.display = "block";
+      renderCart();
+    }
+
+    function closeCart() {
+      document.getElementById("cartPanel").style.display = "none";
+    }
+
+    function renderCart() {
+      const box = document.getElementById("cartItems");
+      if (!cart.length) {
+        box.innerHTML = '<p class="empty">Ton panier est vide.</p>';
+        return;
+      }
+      box.innerHTML = cart.map((p, i) => `
+        <div class="cart-line">
+          <span>${p.name}</span>
+          <span>${p.price.toFixed(2).replace(".", ",")} € <button style="background:none;color:#d69bff" onclick="removeItem(${i})">✕</button></span>
+        </div>
+      `).join("") + `
+        <p style="margin-top:16px;font-weight:bold">Total : ${
+          cart.reduce((sum, p) => sum + p.price, 0).toFixed(2).replace(".", ",")
+        } €</p>
+      `;
+    }
+
+    function removeItem(i) {
+      cart.splice(i, 1);
+      document.getElementById("count").textContent = cart.length;
+      renderCart();
+    }
+
+    function checkout() {
+      alert("La boutique est encore en préparation. Le paiement sécurisé sera configuré avant l'ouverture.");
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderProducts();
+  </script>
+</body>
+</html>
